@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type Product = {
   _id: string;
   name: string;
@@ -41,9 +43,12 @@ export default async function ProductDetailsPage({
 
           <p className="mt-6 text-2xl font-bold">₹{product.price}</p>
 
-          <button className="mt-8 rounded-lg bg-black px-6 py-3 text-white">
+          <Link
+            href="/order"
+            className="mt-8 inline-block rounded-lg bg-black px-6 py-3 text-white"
+          >
             Order Now
-          </button>
+          </Link>
         </div>
       </div>
     </div>
