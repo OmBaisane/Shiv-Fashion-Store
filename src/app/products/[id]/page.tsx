@@ -1,22 +1,6 @@
 import Link from "next/link";
-
-type Product = {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  images: string[];
-};
-
-async function getProduct(id: string) {
-  const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-    cache: "no-store",
-  });
-
-  const data = await res.json();
-
-  return data.data;
-}
+import Product from "@/models/Product";
+import { connectDB } from "@/lib/mongodb";
 
 export default async function ProductDetailsPage({
   params,
@@ -25,7 +9,13 @@ export default async function ProductDetailsPage({
 }) {
   const { id } = await params;
 
-  const product: Product = await getProduct(id);
+  await connectDB();
+
+  const product = await Product.findById(id).lean();
+
+  if (!product) {
+    return <div>Product not found.</div>;
+  }
 
   return (
     <div className="mx-auto max-w-5xl p-6">

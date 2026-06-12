@@ -1,25 +1,11 @@
 import Link from "next/link";
-
-type Product = {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  images: string[];
-};
-
-async function getProducts() {
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: "no-store",
-  });
-
-  const data = await res.json();
-
-  return data.data;
-}
+import Product from "@/models/Product";
+import { connectDB } from "@/lib/mongodb";
 
 export default async function ProductsPage() {
-  const products: Product[] = await getProducts();
+  await connectDB();
+
+  const products = await Product.find().lean();
 
   return (
     <div className="mx-auto max-w-6xl p-6">
