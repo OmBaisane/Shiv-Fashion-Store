@@ -8,7 +8,13 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    const product = await Product.create(body);
+    console.log("BODY:", body);
+
+    const product = new Product(body);
+
+    console.log("PRODUCT:", Product);
+
+    await product.save();
 
     return NextResponse.json(
       {
@@ -20,12 +26,12 @@ export async function POST(request: Request) {
       },
     );
   } catch (error) {
-    console.error(error);
+    console.error("POST ERROR:", error);
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to create product",
+        error: String(error),
       },
       {
         status: 500,
