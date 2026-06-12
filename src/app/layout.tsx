@@ -1,4 +1,6 @@
+import Navbar from "@/components/Navbar";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Shiv Fashion",
@@ -12,7 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar />
+
+        <main>{children}</main>
+
+        <Footer />
+      </body>
     </html>
   );
 }
