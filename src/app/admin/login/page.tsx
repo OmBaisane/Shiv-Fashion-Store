@@ -9,10 +9,30 @@ export default function AdminLoginPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    console.log({
-      email,
-      password,
-    });
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        window.location.href = "/admin/dashboard";
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+
+      alert("Login failed");
+    }
   }
 
   return (
