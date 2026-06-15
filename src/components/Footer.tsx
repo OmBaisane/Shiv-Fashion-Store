@@ -1,11 +1,22 @@
 export default function Footer() {
   return (
-    <footer className="border-t py-8 text-center">
-      <p>© 2026 Shiv Fashion</p>
+    <footer className="mt-20 border-t bg-gray-50">
+      <div className="mx-auto max-w-6xl px-6 py-10">
+        <h3 className="text-xl font-bold">Shiv Fashion</h3>
 
-      <p className="mt-2 text-sm text-gray-500">
-        Delivery Available Only In Surat
-      </p>
+        <p className="mt-4 text-gray-600">Premium Men's Fashion</p>
+
+        <p className="mt-4 text-gray-600">Delivery Available Only In Surat</p>
+
+        <p className="mt-4 text-gray-600">
+          GYAN VIDYALAYA OPPOSITE, NEAR KESHAR BHAVANI SOCIETY, GODADARA ROAD,
+          SURAT
+        </p>
+
+        <p className="mt-6 text-sm text-gray-500">
+          © 2026 Shiv Fashion. All Rights Reserved.
+        </p>
+      </div>
     </footer>
   );
 }
