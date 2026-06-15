@@ -9,6 +9,10 @@ export default function CheckoutPage() {
 
   const productId = searchParams.get("productId");
 
+  if (!productId) {
+    return <div className="p-10 text-center">Invalid Product</div>;
+  }
+
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");

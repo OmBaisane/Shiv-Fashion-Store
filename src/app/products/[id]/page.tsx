@@ -51,7 +51,7 @@ export default async function ProductDetailsPage({
 
           <div className="mt-10 flex gap-4">
             <Link
-              href={`/checkout?productId=${product._id}`}
+              href={`/order?productId=${product._id}`}
               className="rounded-lg bg-black px-6 py-3 text-white"
             >
               Order Now
