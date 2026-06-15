@@ -8,7 +8,26 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    const order = await Order.create(body);
+    const { productId, customerName, phone, address } = body;
+
+    if (!productId || !customerName || !phone || !address) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "All fields are required",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    const order = await Order.create({
+      productId,
+      customerName,
+      phone,
+      address,
+    });
 
     return NextResponse.json(
       {
@@ -25,6 +44,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: false,
+        message: "Failed to create order",
       },
       {
         status: 500,
