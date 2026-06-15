@@ -52,3 +52,30 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    await connectDB();
+
+    const orders = await Order.find()
+      .populate("productId")
+      .sort({ createdAt: -1 });
+
+    return NextResponse.json({
+      success: true,
+      data: orders,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Failed to fetch orders",
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+}
