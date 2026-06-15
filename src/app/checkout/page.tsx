@@ -1,88 +1,87 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function OrderPage() {
+export default function CheckoutPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    address: "",
-  });
+  const productId = searchParams.get("productId");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [customerName, setCustomerName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    console.log(formData);
+    setLoading(true);
 
-    router.push("/order-success");
-  };
+    const res = await fetch("/api/orders", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        productId,
+        customerName,
+        phone,
+        address,
+      }),
+    });
+
+    const data = await res.json();
+
+    setLoading(false);
+
+    if (data.success) {
+      router.push("/success");
+    }
+  }
 
   return (
-    <div className="mx-auto max-w-xl p-6">
-      <h1 className="mb-6 text-3xl font-bold">Place Your Order</h1>
+    <div className="mx-auto max-w-2xl p-6">
+      <h1 className="mb-8 text-3xl font-bold">Complete Your Order</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <input
           type="text"
           placeholder="Full Name"
           required
-          className="w-full rounded border p-3"
-          value={formData.name}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              name: e.target.value,
-            })
-          }
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
+          className="w-full rounded-lg border p-3"
         />
 
         <input
           type="tel"
           placeholder="Phone Number"
           required
-          className="w-full rounded border p-3"
-          value={formData.phone}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              phone: e.target.value,
-            })
-          }
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full rounded-lg border p-3"
         />
 
         <textarea
-          placeholder="Address"
+          placeholder="Full Address"
           required
-          className="w-full rounded border p-3"
           rows={4}
-          value={formData.address}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              address: e.target.value,
-            })
-          }
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="w-full rounded-lg border p-3"
         />
-
-        <div className="rounded border bg-gray-50 p-4">
-          <p>
-            Payment Method:
-            <strong> Cash On Delivery</strong>
-          </p>
-
-          <p className="mt-2 text-sm text-gray-500">
-            Delivery Available Only In Surat
-          </p>
-        </div>
 
         <button
           type="submit"
-          className="w-full rounded bg-black py-3 text-white"
+          disabled={loading}
+          className="w-full rounded-lg bg-black py-3 text-white"
         >
-          Place Order
+          {loading ? "Placing Order..." : "Place Order"}
         </button>
       </form>
     </div>
