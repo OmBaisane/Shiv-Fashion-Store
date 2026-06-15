@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -6,60 +7,88 @@ export default function HomePage() {
       {/* Hero */}
 
       <section className="bg-black text-white">
-        <div className="mx-auto max-w-6xl px-6 py-24 text-center">
-          <h1 className="text-5xl font-bold">Premium Men's Fashion</h1>
+        <div className="mx-auto flex max-w-6xl flex-col items-center px-6 py-24 text-center">
+          <Image
+            src="/logo.svg"
+            alt="Shiv Fashion"
+            width={180}
+            height={180}
+            priority
+          />
 
-          <p className="mt-6 text-lg text-gray-300">
-            Quality clothing at affordable prices.
+          <h1 className="mt-8 text-5xl font-bold md:text-6xl">Shiv Fashion</h1>
+
+          <p className="mt-6 max-w-2xl text-lg text-gray-300">
+            Premium Men's Wear • Affordable Prices • Trusted Local Store
           </p>
 
-          <p className="mt-2 text-gray-400">Delivery Available Only In Surat</p>
+          <p className="mt-2 text-gray-400">Delivery Available Across Surat</p>
 
-          <Link
-            href="/products"
-            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-black"
-          >
-            Shop Now
-          </Link>
+          <div className="mt-8 flex gap-4">
+            <Link
+              href="/products"
+              className="rounded-lg bg-white px-6 py-3 font-semibold text-black"
+            >
+              Shop Now
+            </Link>
+
+            <a
+              href="https://instagram.com/shivfashion26"
+              target="_blank"
+              className="rounded-lg border border-white px-6 py-3"
+            >
+              Instagram
+            </a>
+          </div>
         </div>
       </section>
 
       {/* Features */}
 
       <section className="mx-auto max-w-6xl px-6 py-16">
+        <h2 className="mb-10 text-center text-3xl font-bold">Why Choose Us?</h2>
+
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-xl border p-6">
+          <div className="rounded-xl border p-6 shadow-sm">
             <h3 className="font-bold">Premium Quality</h3>
+
             <p className="mt-2 text-gray-600">
-              Carefully selected men's fashion.
+              Carefully selected men's fashion products.
             </p>
           </div>
 
-          <div className="rounded-xl border p-6">
-            <h3 className="font-bold">Cash On Delivery</h3>
+          <div className="rounded-xl border p-6 shadow-sm">
+            <h3 className="font-bold">Affordable Prices</h3>
+
             <p className="mt-2 text-gray-600">
-              Pay after receiving your order.
+              Best quality at reasonable pricing.
             </p>
           </div>
 
-          <div className="rounded-xl border p-6">
-            <h3 className="font-bold">Surat Delivery</h3>
+          <div className="rounded-xl border p-6 shadow-sm">
+            <h3 className="font-bold">Fast Surat Delivery</h3>
+
             <p className="mt-2 text-gray-600">
-              Fast local delivery across Surat.
+              Local delivery service available.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Store Address */}
+      {/* Address */}
 
       <section className="bg-gray-100 py-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="text-3xl font-bold">Visit Our Store</h2>
 
-          <p className="mt-4 text-lg">
-            GYAN VIDYALAYA OPPOSITE, NEAR KESHAR BHAVANI SOCIETY, GODADARA ROAD,
-            SURAT
+          <p className="mt-6 text-lg">
+            GYAN VIDYALAYA OPPOSITE,
+            <br />
+            Near Keshar Bhavani Society,
+            <br />
+            Godadara Road,
+            <br />
+            Surat
           </p>
         </div>
       </section>
