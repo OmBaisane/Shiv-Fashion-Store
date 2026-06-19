@@ -2,6 +2,7 @@ import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
 import Product from "@/models/Product";
 import Link from "next/link";
+import AdminNavbar from "@/components/AdminNavbar";
 
 export default async function AdminDashboardPage() {
   await connectDB();
@@ -26,6 +27,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="mx-auto max-w-7xl p-6">
+      <AdminNavbar />
       <h1 className="text-4xl font-bold">Admin Dashboard</h1>
 
       <p className="mt-2 text-gray-600">Welcome to Shiv Fashion Admin Panel</p>

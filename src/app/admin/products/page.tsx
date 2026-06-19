@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Product from "@/models/Product";
 import { connectDB } from "@/lib/mongodb";
+import AdminNavbar from "@/components/AdminNavbar";
 import DeleteProductButton from "@/components/DeleteProductButton";
 
 export default async function AdminProductsPage() {
@@ -16,6 +17,7 @@ export default async function AdminProductsPage() {
 
   return (
     <div className="mx-auto max-w-7xl p-6">
+      <AdminNavbar />
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Products</h1>
 
