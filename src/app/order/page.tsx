@@ -1,22 +1,18 @@
 "use client";
 
+import { Suspense } from "react";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function CheckoutPage() {
+function CheckoutForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const productId = searchParams.get("productId");
 
-  if (!productId) {
-    return <div className="p-10 text-center">Invalid Product</div>;
-  }
-
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -26,11 +22,9 @@ export default function CheckoutPage() {
 
     const res = await fetch("/api/orders", {
       method: "POST",
-
       headers: {
         "Content-Type": "application/json",
       },
-
       body: JSON.stringify({
         productId,
         customerName,
@@ -89,5 +83,13 @@ export default function CheckoutPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function OrderPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CheckoutForm />
+    </Suspense>
   );
 }
