@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
 
-export async function PATCH(
+export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
@@ -11,13 +11,21 @@ export async function PATCH(
 
     const { id } = await params;
 
-    const { status } = await request.json();
+    const body = await request.json();
 
-    const order = await Order.findByIdAndUpdate(id, { status }, { new: true });
+    const updatedOrder = await Order.findByIdAndUpdate(
+      id,
+      {
+        status: body.status,
+      },
+      {
+        new: true,
+      },
+    );
 
     return NextResponse.json({
       success: true,
-      data: order,
+      data: updatedOrder,
     });
   } catch (error) {
     console.error(error);
