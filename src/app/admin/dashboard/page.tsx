@@ -1,111 +1,81 @@
-import { connectDB } from "@/lib/mongodb";
-import Order from "@/models/Order";
-import Product from "@/models/Product";
 import Link from "next/link";
+import Product from "@/models/Product";
+import { connectDB } from "@/lib/mongodb";
 import AdminNavbar from "@/components/AdminNavbar";
+import DeleteProductButton from "@/components/DeleteProductButton";
 
-export default async function AdminDashboardPage() {
+export default async function AdminProductsPage() {
   await connectDB();
 
-  const totalProducts = await Product.countDocuments();
-
-  const totalOrders = await Order.countDocuments();
-
-  const pendingOrders = await Order.countDocuments({
-    status: "Pending",
-  });
-
-  const deliveredOrders = await Order.countDocuments({
-    status: "Delivered",
-  });
-
-  const recentOrders = JSON.parse(
+  const products = JSON.parse(
     JSON.stringify(
-      await Order.find().populate("productId").sort({ createdAt: -1 }).limit(5),
+      await Product.find().sort({
+        createdAt: -1,
+      }),
     ),
   );
 
   return (
-    <div className="mx-auto max-w-7xl p-6">
-      <AdminNavbar />
-      <h1 className="text-4xl font-bold">Admin Dashboard</h1>
+    <div className="min-h-screen bg-zinc-50">
+      <div className="mx-auto max-w-7xl p-6">
+        <AdminNavbar />
 
-      <p className="mt-2 text-gray-600">Welcome to Shiv Fashion Admin Panel</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold">Products</h1>
 
-      {/* Stats */}
+            <p className="mt-2 text-zinc-600">Manage your store products</p>
+          </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border bg-white p-6 shadow">
-          <h3 className="text-gray-500">Total Products</h3>
-
-          <p className="mt-2 text-4xl font-bold">{totalProducts}</p>
+          <Link
+            href="/admin/products/add-product"
+            className="rounded-xl bg-black px-5 py-3 font-medium text-white transition hover:bg-zinc-800"
+          >
+            Add Product
+          </Link>
         </div>
 
-        <div className="rounded-2xl border bg-white p-6 shadow">
-          <h3 className="text-gray-500">Total Orders</h3>
-
-          <p className="mt-2 text-4xl font-bold">{totalOrders}</p>
-        </div>
-
-        <div className="rounded-2xl border bg-white p-6 shadow">
-          <h3 className="text-gray-500">Pending Orders</h3>
-
-          <p className="mt-2 text-4xl font-bold text-yellow-600">
-            {pendingOrders}
-          </p>
-        </div>
-
-        <div className="rounded-2xl border bg-white p-6 shadow">
-          <h3 className="text-gray-500">Delivered Orders</h3>
-
-          <p className="mt-2 text-4xl font-bold text-green-600">
-            {deliveredOrders}
-          </p>
-        </div>
-      </div>
-
-      {/* Quick Actions */}
-
-      <div className="mt-10 flex flex-wrap gap-4">
-        <Link
-          href="/admin/products"
-          className="rounded-lg bg-black px-5 py-3 text-white"
-        >
-          Manage Products
-        </Link>
-
-        <Link href="/admin/orders" className="rounded-lg border px-5 py-3">
-          Manage Orders
-        </Link>
-      </div>
-
-      {/* Recent Orders */}
-
-      <div className="mt-12">
-        <h2 className="mb-5 text-2xl font-bold">Recent Orders</h2>
-
-        <div className="overflow-hidden rounded-xl border bg-white shadow">
+        <div className="overflow-hidden rounded-3xl border bg-white shadow-xl">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-100">
-                <th className="p-4 text-left">Customer</th>
+              <tr className="bg-zinc-100">
+                <th className="p-4 text-left">Image</th>
 
-                <th className="p-4 text-left">Product</th>
+                <th className="p-4 text-left">Name</th>
 
-                <th className="p-4 text-left">Status</th>
+                <th className="p-4 text-left">Price</th>
+
+                <th className="p-4 text-left">Actions</th>
               </tr>
             </thead>
 
             <tbody>
-              {recentOrders.map((order: any) => (
-                <tr key={order._id} className="border-t">
-                  <td className="p-4">{order.customerName}</td>
-
+              {products.map((product: any) => (
+                <tr key={product._id} className="border-t hover:bg-zinc-50">
                   <td className="p-4">
-                    {order.productId?.name || "Deleted Product"}
+                    <img
+                      src={product.images?.[0]}
+                      alt={product.name}
+                      className="h-20 w-20 rounded-xl object-cover"
+                    />
                   </td>
 
-                  <td className="p-4">{order.status}</td>
+                  <td className="p-4 font-medium">{product.name}</td>
+
+                  <td className="p-4 font-semibold">₹{product.price}</td>
+
+                  <td className="p-4">
+                    <div className="flex gap-2">
+                      <Link
+                        href={`/admin/products/edit-product/${product._id}`}
+                        className="rounded-xl bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+                      >
+                        Edit
+                      </Link>
+
+                      <DeleteProductButton productId={product._id} />
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
