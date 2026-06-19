@@ -6,25 +6,24 @@ export default function HomePage() {
     <div>
       {/* Hero */}
 
-      <section className="bg-black text-white">
-        <div className="mx-auto flex max-w-6xl flex-col items-center px-6 py-24 text-center">
+      <section className="relative bg-black text-white">
+        <div className="mx-auto max-w-7xl px-6 py-24 text-center">
           <Image
-            src="/logo.svg"
+            src="/logo.png"
             alt="Shiv Fashion"
-            width={180}
-            height={180}
+            width={220}
+            height={220}
+            className="mx-auto"
             priority
           />
 
-          <h1 className="mt-8 text-5xl font-bold md:text-6xl">Shiv Fashion</h1>
+          <h1 className="mt-8 text-6xl font-bold">Elevate Your Style</h1>
 
-          <p className="mt-6 max-w-2xl text-lg text-gray-300">
-            Premium Men's Wear • Affordable Prices • Trusted Local Store
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-300">
+            Premium Men's Wear crafted for confidence, comfort and modern
+            fashion.
           </p>
-
-          <p className="mt-2 text-gray-400">Delivery Available Across Surat</p>
-
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex gap-4 justify-center">
             <Link
               href="/products"
               className="rounded-lg bg-white px-6 py-3 font-semibold text-black"

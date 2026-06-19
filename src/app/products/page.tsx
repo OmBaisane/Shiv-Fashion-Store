@@ -10,7 +10,7 @@ export default async function ProductsPage() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
       {/* Heading */}
 
       <div className="mb-10 text-center">

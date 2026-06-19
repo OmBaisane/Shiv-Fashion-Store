@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="mt-20 border-t bg-gray-50">
+    <footer className="mt-20 border-t bg-black text-white">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <h3 className="text-xl font-bold">Shiv Fashion</h3>
 
