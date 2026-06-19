@@ -9,9 +9,43 @@ export default function AddProductPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+
   const [imageUrl, setImageUrl] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    try {
+      setUploading(true);
+
+      const formData = new FormData();
+
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setImageUrl(data.url);
+      } else {
+        alert("Upload Failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Upload Failed");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -81,18 +115,30 @@ export default function AddProductPage() {
           className="w-full rounded-lg border p-3"
         />
 
-        <input
-          type="text"
-          placeholder="Image URL"
-          required
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className="w-full rounded-lg border p-3"
-        />
+        <div className="space-y-3">
+          <label className="font-medium">Product Image</label>
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="w-full rounded-lg border p-3"
+          />
+
+          {uploading && <p className="text-blue-600">Uploading Image...</p>}
+
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt="Preview"
+              className="h-56 w-full rounded-lg border object-cover"
+            />
+          )}
+        </div>
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || uploading}
           className="rounded-lg bg-black px-6 py-3 text-white"
         >
           {loading ? "Creating..." : "Create Product"}
