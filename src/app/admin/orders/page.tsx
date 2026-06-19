@@ -13,66 +13,82 @@ export default async function AdminOrdersPage() {
   );
 
   return (
-    <div className="mx-auto max-w-7xl p-6">
-      <AdminNavbar />
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Orders</h1>
+    <div className="min-h-screen bg-zinc-50">
+      <div className="mx-auto max-w-7xl p-6">
+        <AdminNavbar />
 
-        <p className="mt-2 text-gray-600">Manage customer orders</p>
-      </div>
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold">Orders Management</h1>
 
-      {orders.length === 0 ? (
-        <div className="rounded-xl border p-10 text-center">No Orders Yet</div>
-      ) : (
-        <div className="overflow-hidden rounded-xl border bg-white shadow">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="p-4 text-left">Customer</th>
-
-                <th className="p-4 text-left">Phone</th>
-
-                <th className="p-4 text-left">Product</th>
-
-                <th className="p-4 text-left">Status</th>
-
-                <th className="p-4 text-left">Date</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {orders.map((order: any) => (
-                <tr key={order._id} className="border-t">
-                  <td className="p-4">
-                    <div>
-                      <p className="font-medium">{order.customerName}</p>
-
-                      <p className="text-sm text-gray-500">{order.address}</p>
-                    </div>
-                  </td>
-
-                  <td className="p-4">{order.phone}</td>
-
-                  <td className="p-4">
-                    {order.productId?.name || "Deleted Product"}
-                  </td>
-
-                  <td className="p-4">
-                    <OrderStatusSelect
-                      orderId={order._id}
-                      currentStatus={order.status}
-                    />
-                  </td>
-
-                  <td className="p-4">
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <p className="mt-2 text-zinc-600">
+            Manage customer orders and delivery status
+          </p>
         </div>
-      )}
+
+        {orders.length === 0 ? (
+          <div className="rounded-3xl border bg-white p-12 text-center shadow">
+            <h2 className="text-2xl font-bold">No Orders Yet</h2>
+
+            <p className="mt-2 text-zinc-500">
+              Orders will appear here automatically.
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-hidden rounded-3xl border bg-white shadow-xl">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-zinc-100">
+                  <th className="p-4 text-left">Customer</th>
+
+                  <th className="p-4 text-left">Phone</th>
+
+                  <th className="p-4 text-left">Product</th>
+
+                  <th className="p-4 text-left">Status</th>
+
+                  <th className="p-4 text-left">Date</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {orders.map((order: any) => (
+                  <tr
+                    key={order._id}
+                    className="border-t transition hover:bg-zinc-50"
+                  >
+                    <td className="p-4">
+                      <div>
+                        <p className="font-semibold">{order.customerName}</p>
+
+                        <p className="mt-1 text-sm text-zinc-500">
+                          {order.address}
+                        </p>
+                      </div>
+                    </td>
+
+                    <td className="p-4 font-medium">{order.phone}</td>
+
+                    <td className="p-4">
+                      {order.productId?.name || "Deleted Product"}
+                    </td>
+
+                    <td className="p-4">
+                      <OrderStatusSelect
+                        orderId={order._id}
+                        currentStatus={order.status}
+                      />
+                    </td>
+
+                    <td className="p-4 text-zinc-600">
+                      {new Date(order.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
