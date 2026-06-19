@@ -43,45 +43,50 @@ function CheckoutForm() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl p-6">
-      <h1 className="mb-8 text-3xl font-bold">Complete Your Order</h1>
+    <div className="mx-auto max-w-2xl px-6 py-16">
+      <h1 className="mb-2 text-4xl font-bold">Complete Your Order</h1>
+      <p className="mb-8 text-zinc-600">
+        Fill your details and we'll contact you shortly.
+      </p>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <input
-          type="text"
-          placeholder="Full Name"
-          required
-          value={customerName}
-          onChange={(e) => setCustomerName(e.target.value)}
-          className="w-full rounded-lg border p-3"
-        />
+      <div className="rounded-3xl border bg-white p-8 shadow-xl">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <input
+            type="text"
+            placeholder="Full Name"
+            required
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            className="w-full rounded-xl border border-zinc-300 p-4 outline-none focus:border-yellow-500"
+          />
 
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          required
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="w-full rounded-lg border p-3"
-        />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full rounded-xl border border-zinc-300 p-4 outline-none focus:border-yellow-500"
+          />
 
-        <textarea
-          placeholder="Full Address"
-          required
-          rows={4}
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          className="w-full rounded-lg border p-3"
-        />
+          <textarea
+            placeholder="Full Address"
+            required
+            rows={4}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="w-full rounded-xl border border-zinc-300 p-4 outline-none focus:border-yellow-500"
+          />
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-lg bg-black py-3 text-white"
-        >
-          {loading ? "Placing Order..." : "Place Order"}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-lg bg-black py-3 text-white"
+          >
+            {loading ? "Placing Order..." : "Place Order"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

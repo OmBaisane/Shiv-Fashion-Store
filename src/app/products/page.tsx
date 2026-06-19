@@ -10,11 +10,11 @@ export default async function ProductsPage() {
   );
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+    <div className="mx-auto max-w-7xl px-6 py-12">
       {/* Heading */}
 
       <div className="mb-10 text-center">
-        <h1 className="text-4xl font-bold">Our Collection</h1>
+        <h1 className="text-5xl font-bold text-black">Our Collection</h1>
 
         <p className="mt-3 text-gray-600">
           Premium quality clothing at affordable prices.
@@ -34,7 +34,7 @@ export default async function ProductsPage() {
           {products.map((product: any) => (
             <div
               key={product._id}
-              className="overflow-hidden rounded-xl border bg-white shadow transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
               {/* Product Image */}
 
@@ -53,7 +53,7 @@ export default async function ProductsPage() {
                   {product.description}
                 </p>
 
-                <p className="mt-4 text-2xl font-bold text-black">
+                <p className="mt-4 text-3xl font-bold text-yellow-600">
                   ₹{product.price}
                 </p>
 

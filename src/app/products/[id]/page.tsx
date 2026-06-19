@@ -18,7 +18,7 @@ export default async function ProductDetailsPage({
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="mx-auto max-w-7xl px-6 py-16">
       <div className="grid gap-12 md:grid-cols-2">
         {/* Image */}
 
@@ -26,16 +26,18 @@ export default async function ProductDetailsPage({
           <img
             src={product.images?.[0]}
             alt={product.name}
-            className="h-[500px] w-full rounded-2xl object-cover shadow-lg"
+            className="h-150 w-full rounded-3xl object-cover shadow-2xl"
           />
         </div>
 
         {/* Details */}
 
         <div>
-          <h1 className="text-4xl font-bold">{product.name}</h1>
+          <h1 className="text-5xl font-bold text-black">{product.name}</h1>
 
-          <p className="mt-4 text-3xl font-bold">₹{product.price}</p>
+          <p className="mt-6 text-4xl font-bold text-yellow-600">
+            ₹{product.price}
+          </p>
 
           <div className="mt-6 flex gap-3">
             <span className="rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700">
@@ -52,7 +54,7 @@ export default async function ProductDetailsPage({
           <div className="mt-10 flex gap-4">
             <Link
               href={`/order?productId=${product._id}`}
-              className="rounded-lg bg-black px-6 py-3 text-white"
+              className="rounded-xl bg-black px-8 py-4 font-semibold text-white transition hover:bg-zinc-800"
             >
               Order Now
             </Link>
