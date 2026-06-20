@@ -8,11 +8,7 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    console.log("BODY:", body);
-
     const product = new Product(body);
-
-    console.log("PRODUCT:", Product);
 
     await product.save();
 

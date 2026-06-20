@@ -45,6 +45,7 @@ export default async function AdminOrdersPage() {
                   <th className="p-5 text-left">Product</th>
                   <th className="p-5 text-left">Status</th>
                   <th className="p-5 text-left">Date</th>
+                  <th className="p-5 text-left">Actions</th>
                 </tr>
               </thead>
 
@@ -81,6 +82,25 @@ export default async function AdminOrdersPage() {
 
                     <td className="p-5 text-zinc-600">
                       {new Date(order.createdAt).toLocaleDateString()}
+                    </td>
+
+                    <td className="p-5">
+                      <div className="flex flex-wrap gap-2">
+                        <a
+                          href={`https://wa.me/91${order.phone}`}
+                          target="_blank"
+                          className="rounded-xl bg-green-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-700"
+                        >
+                          WhatsApp
+                        </a>
+
+                        <a
+                          href={`tel:${order.phone}`}
+                          className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+                        >
+                          Call
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 ))}

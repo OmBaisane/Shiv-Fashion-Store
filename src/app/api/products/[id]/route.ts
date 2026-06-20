@@ -40,15 +40,10 @@ export async function PUT(
 
     const body = await request.json();
 
-    console.log("ID:", id);
-    console.log("BODY:", body);
-
     const updatedProduct = await Product.findByIdAndUpdate(id, body, {
       new: true,
     });
-
-    console.log(updatedProduct);
-
+    
     return NextResponse.json({
       success: true,
       data: updatedProduct,

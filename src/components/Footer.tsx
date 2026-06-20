@@ -50,6 +50,29 @@ export default function Footer() {
             © 2026 Shiv Fashion. All Rights Reserved.
           </p>
         </div>
+        <div className="mt-10 border-t border-zinc-800 pt-6">
+          <p className="text-center text-sm text-zinc-500">
+            © 2026 Shiv Fashion. All Rights Reserved.
+          </p>
+
+          <div className="mt-4 text-center">
+            <p className="text-sm text-zinc-500">
+              Website Developed By
+              <span className="ml-1 font-semibold text-yellow-400">
+                Om Baisane
+              </span>
+            </p>
+
+            <a
+              href="https://www.linkedin.com/in/om-baisane-b96625346"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block text-sm text-zinc-400 transition hover:text-yellow-400"
+            >
+              Connect With Developer
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );
