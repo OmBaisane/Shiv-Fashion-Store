@@ -119,7 +119,7 @@ export default function EditProductPage({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-black"
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none focus:border-black focus:ring-2 focus:ring-zinc-200"
               />
             </div>
 
@@ -133,7 +133,7 @@ export default function EditProductPage({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
-                className="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-black"
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none focus:border-black focus:ring-2 focus:ring-zinc-200"
               />
             </div>
 
@@ -147,7 +147,7 @@ export default function EditProductPage({
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 required
-                className="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-black"
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none focus:border-black focus:ring-2 focus:ring-zinc-200"
               />
             </div>
 
@@ -161,7 +161,7 @@ export default function EditProductPage({
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
                 required
-                className="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-black"
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none focus:border-black focus:ring-2 focus:ring-zinc-200"
               />
             </div>
 
@@ -174,7 +174,7 @@ export default function EditProductPage({
                 <img
                   src={imageUrl}
                   alt="Preview"
-                  className="h-80 w-full rounded-2xl border object-cover"
+                  className="h-80 w-full rounded-2xl border border-zinc-200 object-cover shadow"
                 />
               </div>
             )}

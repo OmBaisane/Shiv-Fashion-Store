@@ -14,11 +14,20 @@ export default async function ProductDetailsPage({
   const product = JSON.parse(JSON.stringify(await Product.findById(id)));
 
   if (!product) {
-    return <div className="p-10 text-center">Product Not Found</div>;
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold">Product Not Found</h1>
+          <p className="mt-2 text-zinc-500">
+            This product may have been removed.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
+    <div className="mx-auto max-w-7xl px-6 py-12 md:py-20">
       <div className="grid gap-12 md:grid-cols-2">
         {/* Image */}
 
@@ -26,16 +35,18 @@ export default async function ProductDetailsPage({
           <img
             src={product.images?.[0]}
             alt={product.name}
-            className="h-150 w-full rounded-3xl object-cover shadow-2xl"
+            className="h-125 w-full rounded-3xl border border-zinc-200 object-cover shadow-2xl"
           />
         </div>
 
         {/* Details */}
 
         <div>
-          <h1 className="text-5xl font-bold text-black">{product.name}</h1>
+          <h1 className="text-4xl font-bold text-black md:text-5xl">
+            {product.name}
+          </h1>
 
-          <p className="mt-6 text-4xl font-bold text-yellow-600">
+          <p className="mt-6 text-5xl font-bold text-yellow-500">
             ₹{product.price}
           </p>
 
@@ -49,19 +60,38 @@ export default async function ProductDetailsPage({
             </span>
           </div>
 
-          <p className="mt-8 leading-7 text-gray-600">{product.description}</p>
+          <div className="mt-8 border-t border-zinc-200"></div>
+
+          <p className="mt-8 text-lg leading-8 text-zinc-600">
+            {product.description}
+          </p>
 
           <div className="mt-10 flex gap-4">
             <Link
               href={`/order?productId=${product._id}`}
-              className="rounded-xl bg-black px-8 py-4 font-semibold text-white transition hover:bg-zinc-800"
+              className="rounded-xl bg-black px-8 py-4 font-semibold text-white shadow-lg transition hover:bg-zinc-800"
             >
               Order Now
             </Link>
 
-            <Link href="/products" className="rounded-lg border px-6 py-3">
+            <Link
+              href="/products"
+              className="rounded-xl border border-zinc-300 px-6 py-4 font-medium transition hover:bg-zinc-100"
+            >
               Back
             </Link>
+          </div>
+          <div className="mt-10 rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+            <h3 className="font-semibold text-black">
+              Why Buy Form Shiv Fashion?
+            </h3>
+
+            <ul className="mt-3 space-y-2 text-zinc-600">
+              <li>Premium Quality Products</li>
+              <li>Affordable Pricing</li>
+              <li>Fast Delivery In Surat</li>
+              <li>Cash On Delivery Available</li>
+            </ul>
           </div>
         </div>
       </div>

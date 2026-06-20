@@ -93,7 +93,7 @@ export default function AddProductPage() {
           </p>
         </div>
 
-        <div className="rounded-3xl border bg-white p-8 shadow-xl">
+        <div className="rounded-3xl border border-zinc-200 bg-white p-8 shadow-xl">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="mb-2 block font-semibold text-zinc-700">
@@ -106,7 +106,7 @@ export default function AddProductPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-xl border border-zinc-300 px-4 py-3 focus:border-black focus:outline-none"
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none placeholder:text-zinc-400 focus:border-black focus:ring-2 focus:ring-zinc-200"
               />
             </div>
 
@@ -121,7 +121,7 @@ export default function AddProductPage() {
                 required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full rounded-xl border border-zinc-300 px-4 py-3 focus:border-black focus:outline-none"
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none placeholder:text-zinc-400 focus:border-black focus:ring-2 focus:ring-zinc-200"
               />
             </div>
 
@@ -136,7 +136,7 @@ export default function AddProductPage() {
                 required
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full rounded-xl border border-zinc-300 px-4 py-3 focus:border-black focus:outline-none"
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none placeholder:text-zinc-400 focus:border-black focus:ring-2 focus:ring-zinc-200"
               />
             </div>
 
@@ -162,7 +162,7 @@ export default function AddProductPage() {
                 <img
                   src={imageUrl}
                   alt="Preview"
-                  className="mt-4 h-72 w-full rounded-2xl border object-cover"
+                  className="mt-4 h-72 w-full rounded-2xl border border-zinc-200 object-cover shadow"
                 />
               )}
             </div>
