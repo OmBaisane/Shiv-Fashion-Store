@@ -71,6 +71,7 @@ export default function AddProductPage() {
 
       if (data.success) {
         router.push("/admin/products");
+        alert("Product Created Successfully");
       } else {
         alert("Failed To Create Product");
       }
