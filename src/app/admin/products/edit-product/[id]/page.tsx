@@ -26,20 +26,19 @@ export default function EditProductPage({
   const [imageUrl, setImageUrl] = useState("");
 
   const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     async function loadProduct() {
       const { id } = await params;
 
       const res = await fetch(`/api/products/${id}`);
-
       const data = await res.json();
 
       if (data.success) {
         const p = data.data;
 
         setProduct(p);
-
         setName(p.name);
         setDescription(p.description);
         setPrice(String(p.price));
@@ -57,82 +56,139 @@ export default function EditProductPage({
 
     if (!product) return;
 
-    const res = await fetch(`/api/products/${product._id}`, {
-      method: "PUT",
+    try {
+      setUpdating(true);
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+      const res = await fetch(`/api/products/${product._id}`, {
+        method: "PUT",
 
-      body: JSON.stringify({
-        name,
-        description,
-        price: Number(price),
-        images: [imageUrl],
-      }),
-    });
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-    const data = await res.json();
+        body: JSON.stringify({
+          name,
+          description,
+          price: Number(price),
+          images: [imageUrl],
+        }),
+      });
 
-    if (data.success) {
-      alert("Product Updated Successfully");
+      const data = await res.json();
 
-      router.push("/admin/products");
+      if (data.success) {
+        alert("Product Updated Successfully");
+        router.push("/admin/products");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update product");
+    } finally {
+      setUpdating(false);
     }
   }
 
   if (loading) {
-    return <div className="p-10">Loading...</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-xl font-semibold">Loading Product...</div>
+      </div>
+    );
   }
 
   return (
-    <div className="mx-auto max-w-3xl p-6">
-      <h1 className="mb-8 text-3xl font-bold">Edit Product</h1>
+    <div className="min-h-screen bg-zinc-50">
+      <div className="mx-auto max-w-4xl p-6">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-black">Edit Product</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <input
-          type="text"
-          placeholder="Product Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-lg border p-3"
-          required
-        />
+          <p className="mt-2 text-zinc-600">
+            Update product details and preview changes.
+          </p>
+        </div>
 
-        <textarea
-          rows={5}
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-lg border p-3"
-          required
-        />
+        <div className="rounded-3xl border bg-white p-8 shadow-xl">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="mb-2 block font-semibold text-zinc-800">
+                Product Name
+              </label>
 
-        <input
-          type="number"
-          placeholder="Price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          className="w-full rounded-lg border p-3"
-          required
-        />
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-black"
+              />
+            </div>
 
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className="w-full rounded-lg border p-3"
-          required
-        />
+            <div>
+              <label className="mb-2 block font-semibold text-zinc-800">
+                Description
+              </label>
 
-        <button
-          type="submit"
-          className="rounded-lg bg-black px-6 py-3 text-white"
-        >
-          Update Product
-        </button>
-      </form>
+              <textarea
+                rows={5}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-black"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-semibold text-zinc-800">
+                Price (₹)
+              </label>
+
+              <input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-black"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-semibold text-zinc-800">
+                Image URL
+              </label>
+
+              <input
+                type="text"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                required
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-black"
+              />
+            </div>
+
+            {imageUrl && (
+              <div>
+                <p className="mb-3 font-semibold text-zinc-800">
+                  Image Preview
+                </p>
+
+                <img
+                  src={imageUrl}
+                  alt="Preview"
+                  className="h-80 w-full rounded-2xl border object-cover"
+                />
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={updating}
+              className="w-full rounded-xl bg-black py-4 text-lg font-semibold text-white transition hover:bg-zinc-800"
+            >
+              {updating ? "Updating Product..." : "Update Product"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

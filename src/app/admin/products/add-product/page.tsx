@@ -9,7 +9,6 @@ export default function AddProductPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-
   const [imageUrl, setImageUrl] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -73,77 +72,111 @@ export default function AddProductPage() {
       if (data.success) {
         router.push("/admin/products");
       } else {
-        alert(data.message || "Failed to create product");
+        alert("Failed To Create Product");
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong");
+      alert("Something Went Wrong");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="mx-auto max-w-3xl p-6">
-      <h1 className="mb-8 text-3xl font-bold">Add Product</h1>
+    <div className="min-h-screen bg-zinc-50">
+      <div className="mx-auto max-w-4xl p-6">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-black">Add New Product</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <input
-          type="text"
-          placeholder="Product Name"
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-lg border p-3"
-        />
-
-        <textarea
-          placeholder="Description"
-          required
-          rows={5}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-lg border p-3"
-        />
-
-        <input
-          type="number"
-          placeholder="Price"
-          required
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          className="w-full rounded-lg border p-3"
-        />
-
-        <div className="space-y-3">
-          <label className="font-medium">Product Image</label>
-
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="w-full rounded-lg border p-3"
-          />
-
-          {uploading && <p className="text-blue-600">Uploading Image...</p>}
-
-          {imageUrl && (
-            <img
-              src={imageUrl}
-              alt="Preview"
-              className="h-56 w-full rounded-lg border object-cover"
-            />
-          )}
+          <p className="mt-2 text-zinc-600">
+            Create a new product for Shiv Fashion store.
+          </p>
         </div>
 
-        <button
-          type="submit"
-          disabled={loading || uploading}
-          className="rounded-lg bg-black px-6 py-3 text-white"
-        >
-          {loading ? "Creating..." : "Create Product"}
-        </button>
-      </form>
+        <div className="rounded-3xl border bg-white p-8 shadow-xl">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="mb-2 block font-semibold text-zinc-700">
+                Product Name
+              </label>
+
+              <input
+                type="text"
+                placeholder="Enter product name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 focus:border-black focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-semibold text-zinc-700">
+                Description
+              </label>
+
+              <textarea
+                rows={5}
+                placeholder="Enter product description"
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 focus:border-black focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-semibold text-zinc-700">
+                Price (₹)
+              </label>
+
+              <input
+                type="number"
+                placeholder="Enter product price"
+                required
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="w-full rounded-xl border border-zinc-300 px-4 py-3 focus:border-black focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-semibold text-zinc-700">
+                Product Image
+              </label>
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="w-full rounded-xl border border-zinc-300 p-3"
+              />
+
+              {uploading && (
+                <p className="mt-3 font-medium text-blue-600">
+                  Uploading Image...
+                </p>
+              )}
+
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt="Preview"
+                  className="mt-4 h-72 w-full rounded-2xl border object-cover"
+                />
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading || uploading}
+              className="w-full rounded-xl bg-black px-6 py-3 font-semibold text-white transition hover:bg-zinc-800"
+            >
+              {loading ? "Creating Product..." : "Create Product"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

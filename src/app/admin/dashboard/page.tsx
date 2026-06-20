@@ -1,17 +1,27 @@
-import Link from "next/link";
-import Product from "@/models/Product";
 import { connectDB } from "@/lib/mongodb";
+import Order from "@/models/Order";
+import Product from "@/models/Product";
+import Link from "next/link";
 import AdminNavbar from "@/components/AdminNavbar";
-import DeleteProductButton from "@/components/DeleteProductButton";
 
-export default async function AdminProductsPage() {
+export default async function AdminDashboardPage() {
   await connectDB();
 
-  const products = JSON.parse(
+  const totalProducts = await Product.countDocuments();
+
+  const totalOrders = await Order.countDocuments();
+
+  const pendingOrders = await Order.countDocuments({
+    status: "Pending",
+  });
+
+  const deliveredOrders = await Order.countDocuments({
+    status: "Delivered",
+  });
+
+  const recentOrders = JSON.parse(
     JSON.stringify(
-      await Product.find().sort({
-        createdAt: -1,
-      }),
+      await Order.find().populate("productId").sort({ createdAt: -1 }).limit(5),
     ),
   );
 
@@ -20,66 +30,106 @@ export default async function AdminProductsPage() {
       <div className="mx-auto max-w-7xl p-6">
         <AdminNavbar />
 
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold">Products</h1>
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold text-zinc-900">Dashboard</h1>
 
-            <p className="mt-2 text-zinc-600">Manage your store products</p>
+          <p className="mt-2 text-zinc-600">
+            Welcome back to Shiv Fashion Admin Panel
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-3xl bg-white p-6 shadow-lg">
+            <p className="text-sm text-zinc-500">Total Products</p>
+
+            <h2 className="mt-3 text-5xl font-bold">{totalProducts}</h2>
           </div>
 
+          <div className="rounded-3xl bg-white p-6 shadow-lg">
+            <p className="text-sm text-zinc-500">Total Orders</p>
+
+            <h2 className="mt-3 text-5xl font-bold">{totalOrders}</h2>
+          </div>
+
+          <div className="rounded-3xl bg-white p-6 shadow-lg">
+            <p className="text-sm text-zinc-500">Pending Orders</p>
+
+            <h2 className="mt-3 text-5xl font-bold text-yellow-500">
+              {pendingOrders}
+            </h2>
+          </div>
+
+          <div className="rounded-3xl bg-white p-6 shadow-lg">
+            <p className="text-sm text-zinc-500">Delivered Orders</p>
+
+            <h2 className="mt-3 text-5xl font-bold text-green-600">
+              {deliveredOrders}
+            </h2>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-wrap gap-4">
           <Link
-            href="/admin/products/add-product"
-            className="rounded-xl bg-black px-5 py-3 font-medium text-white transition hover:bg-zinc-800"
+            href="/admin/products"
+            className="rounded-xl bg-black px-6 py-3 font-medium text-white transition hover:bg-zinc-800"
           >
-            Add Product
+            Manage Products
+          </Link>
+
+          <Link
+            href="/admin/orders"
+            className="rounded-xl border border-zinc-300 bg-white px-6 py-3 font-medium transition hover:bg-zinc-100"
+          >
+            Manage Orders
           </Link>
         </div>
 
-        <div className="overflow-hidden rounded-3xl border bg-white shadow-xl">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-zinc-100">
-                <th className="p-4 text-left">Image</th>
+        <div className="mt-12">
+          <h2 className="mb-5 text-2xl font-bold">Recent Orders</h2>
 
-                <th className="p-4 text-left">Name</th>
+          <div className="overflow-hidden rounded-3xl bg-white shadow-xl">
+            {recentOrders.length === 0 ? (
+              <div className="p-10 text-center text-zinc-500">
+                No orders yet
+              </div>
+            ) : (
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-zinc-100">
+                    <th className="p-4 text-left">Customer</th>
+                    <th className="p-4 text-left">Product</th>
+                    <th className="p-4 text-left">Status</th>
+                  </tr>
+                </thead>
 
-                <th className="p-4 text-left">Price</th>
+                <tbody>
+                  {recentOrders.map((order: any) => (
+                    <tr key={order._id} className="border-t hover:bg-zinc-50">
+                      <td className="p-4 font-medium">{order.customerName}</td>
 
-                <th className="p-4 text-left">Actions</th>
-              </tr>
-            </thead>
+                      <td className="p-4">
+                        {order.productId?.name || "Deleted Product"}
+                      </td>
 
-            <tbody>
-              {products.map((product: any) => (
-                <tr key={product._id} className="border-t hover:bg-zinc-50">
-                  <td className="p-4">
-                    <img
-                      src={product.images?.[0]}
-                      alt={product.name}
-                      className="h-20 w-20 rounded-xl object-cover"
-                    />
-                  </td>
-
-                  <td className="p-4 font-medium">{product.name}</td>
-
-                  <td className="p-4 font-semibold">₹{product.price}</td>
-
-                  <td className="p-4">
-                    <div className="flex gap-2">
-                      <Link
-                        href={`/admin/products/edit-product/${product._id}`}
-                        className="rounded-xl bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
-                      >
-                        Edit
-                      </Link>
-
-                      <DeleteProductButton productId={product._id} />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      <td className="p-4">
+                        <span
+                          className={`rounded-full px-3 py-1 text-sm font-medium ${
+                            order.status === "Delivered"
+                              ? "bg-green-100 text-green-700"
+                              : order.status === "Confirmed"
+                                ? "bg-blue-100 text-blue-700"
+                                : "bg-yellow-100 text-yellow-700"
+                          }`}
+                        >
+                          {order.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       </div>
     </div>

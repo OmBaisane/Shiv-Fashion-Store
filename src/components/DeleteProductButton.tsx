@@ -10,7 +10,9 @@ export default function DeleteProductButton({
   const router = useRouter();
 
   async function handleDelete() {
-    const confirmed = confirm("Are you sure you want to delete this product?");
+    const confirmed = confirm(
+      "Are you sure you want to permanently delete this product?",
+    );
 
     if (!confirmed) return;
 
@@ -23,14 +25,12 @@ export default function DeleteProductButton({
 
       if (data.success) {
         alert("Product Deleted Successfully");
-
         router.refresh();
       } else {
         alert("Failed To Delete Product");
       }
     } catch (error) {
       console.error(error);
-
       alert("Something went wrong");
     }
   }
@@ -38,7 +38,7 @@ export default function DeleteProductButton({
   return (
     <button
       onClick={handleDelete}
-      className="rounded bg-red-600 px-3 py-2 text-white"
+      className="rounded-xl bg-red-600 px-4 py-2 font-medium text-white transition hover:bg-red-700"
     >
       Delete
     </button>

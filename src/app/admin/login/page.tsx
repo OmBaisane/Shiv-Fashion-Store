@@ -30,44 +30,53 @@ export default function AdminLoginPage() {
       }
     } catch (error) {
       console.error(error);
-
       alert("Login failed");
     }
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
-        <h1 className="mb-6 text-center text-3xl font-bold">Admin Login</h1>
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-black via-zinc-900 to-black px-4">
+      <div className="w-full max-w-md rounded-3xl border border-zinc-200 bg-white p-10 shadow-2xl">
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold text-zinc-900">Shiv Fashion</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+          <p className="mt-2 text-zinc-500">Admin Dashboard Access</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="mb-1 block font-medium">Email</label>
+            <label className="mb-2 block font-medium text-zinc-700">
+              Email Address
+            </label>
 
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border p-3"
+              placeholder="admin@example.com"
+              className="w-full rounded-xl border border-zinc-300 px-4 py-3 transition outline-none focus:border-black"
               required
             />
           </div>
 
           <div>
-            <label className="mb-1 block font-medium">Password</label>
+            <label className="mb-2 block font-medium text-zinc-700">
+              Password
+            </label>
 
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border p-3"
+              placeholder="••••••••"
+              className="w-full rounded-xl border border-zinc-300 px-4 py-3 transition outline-none focus:border-black"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-black py-3 text-white"
+            className="w-full rounded-xl bg-black py-3 font-medium text-white transition hover:bg-zinc-800"
           >
             Login
           </button>

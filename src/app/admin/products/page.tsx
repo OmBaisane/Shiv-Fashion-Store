@@ -1,27 +1,17 @@
-import { connectDB } from "@/lib/mongodb";
-import Order from "@/models/Order";
-import Product from "@/models/Product";
 import Link from "next/link";
+import Product from "@/models/Product";
+import { connectDB } from "@/lib/mongodb";
 import AdminNavbar from "@/components/AdminNavbar";
+import DeleteProductButton from "@/components/DeleteProductButton";
 
-export default async function AdminDashboardPage() {
+export default async function AdminProductsPage() {
   await connectDB();
 
-  const totalProducts = await Product.countDocuments();
-
-  const totalOrders = await Order.countDocuments();
-
-  const pendingOrders = await Order.countDocuments({
-    status: "Pending",
-  });
-
-  const deliveredOrders = await Order.countDocuments({
-    status: "Delivered",
-  });
-
-  const recentOrders = JSON.parse(
+  const products = JSON.parse(
     JSON.stringify(
-      await Order.find().populate("productId").sort({ createdAt: -1 }).limit(5),
+      await Product.find().sort({
+        createdAt: -1,
+      }),
     ),
   );
 
@@ -30,98 +20,88 @@ export default async function AdminDashboardPage() {
       <div className="mx-auto max-w-7xl p-6">
         <AdminNavbar />
 
-        <h1 className="text-4xl font-bold text-black">Admin Dashboard</h1>
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-zinc-900">Products</h1>
 
-        <p className="mt-2 text-zinc-600">
-          Welcome to Shiv Fashion Admin Panel
-        </p>
-
-        {/* Stats */}
-
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-3xl border bg-white p-6 shadow-lg">
-            <p className="text-sm text-zinc-500">Total Products</p>
-
-            <h2 className="mt-3 text-5xl font-bold text-black">
-              {totalProducts}
-            </h2>
+            <p className="mt-2 text-zinc-600">Manage your store inventory</p>
           </div>
-
-          <div className="rounded-3xl border bg-white p-6 shadow-lg">
-            <p className="text-sm text-zinc-500">Total Orders</p>
-
-            <h2 className="mt-3 text-5xl font-bold text-black">
-              {totalOrders}
-            </h2>
-          </div>
-
-          <div className="rounded-3xl border bg-white p-6 shadow-lg">
-            <p className="text-sm text-zinc-500">Pending Orders</p>
-
-            <h2 className="mt-3 text-5xl font-bold text-yellow-500">
-              {pendingOrders}
-            </h2>
-          </div>
-
-          <div className="rounded-3xl border bg-white p-6 shadow-lg">
-            <p className="text-sm text-zinc-500">Delivered Orders</p>
-
-            <h2 className="mt-3 text-5xl font-bold text-green-600">
-              {deliveredOrders}
-            </h2>
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-
-        <div className="mt-10 flex flex-wrap gap-4">
-          <Link
-            href="/admin/products"
-            className="rounded-xl bg-black px-6 py-3 font-medium text-white transition hover:bg-zinc-800"
-          >
-            Manage Products
-          </Link>
 
           <Link
-            href="/admin/orders"
-            className="rounded-xl border px-6 py-3 font-medium transition hover:bg-zinc-100"
+            href="/admin/products/add-product"
+            className="rounded-xl bg-black px-5 py-3 font-medium text-white transition hover:bg-zinc-800"
           >
-            Manage Orders
+            + Add Product
           </Link>
         </div>
 
-        {/* Recent Orders */}
+        <div className="overflow-hidden rounded-3xl bg-white shadow-xl">
+          {products.length === 0 ? (
+            <div className="p-12 text-center">
+              <h2 className="text-2xl font-semibold text-zinc-700">
+                No Products Found
+              </h2>
 
-        <div className="mt-12">
-          <h2 className="mb-5 text-2xl font-bold">Recent Orders</h2>
-
-          <div className="overflow-hidden rounded-3xl border bg-white shadow-xl">
+              <p className="mt-2 text-zinc-500">
+                Add your first product to start selling.
+              </p>
+            </div>
+          ) : (
             <table className="w-full">
               <thead>
                 <tr className="bg-zinc-100">
-                  <th className="p-4 text-left">Customer</th>
-
-                  <th className="p-4 text-left">Product</th>
-
-                  <th className="p-4 text-left">Status</th>
+                  <th className="p-5 text-left">Image</th>
+                  <th className="p-5 text-left">Name</th>
+                  <th className="p-5 text-left">Price</th>
+                  <th className="p-5 text-left">Actions</th>
                 </tr>
               </thead>
 
               <tbody>
-                {recentOrders.map((order: any) => (
-                  <tr key={order._id} className="border-t hover:bg-zinc-50">
-                    <td className="p-4">{order.customerName}</td>
-
-                    <td className="p-4">
-                      {order.productId?.name || "Deleted Product"}
+                {products.map((product: any) => (
+                  <tr
+                    key={product._id}
+                    className="border-t transition hover:bg-zinc-50"
+                  >
+                    <td className="p-5">
+                      <img
+                        src={product.images?.[0]}
+                        alt={product.name}
+                        className="h-20 w-20 rounded-xl border object-cover"
+                      />
                     </td>
 
-                    <td className="p-4">{order.status}</td>
+                    <td className="p-5">
+                      <div>
+                        <h3 className="font-semibold text-zinc-900">
+                          {product.name}
+                        </h3>
+                      </div>
+                    </td>
+
+                    <td className="p-5">
+                      <span className="text-lg font-bold text-zinc-900">
+                        ₹{product.price}
+                      </span>
+                    </td>
+
+                    <td className="p-5">
+                      <div className="flex flex-wrap gap-2">
+                        <Link
+                          href={`/admin/products/edit-product/${product._id}`}
+                          className="rounded-xl bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+                        >
+                          Edit
+                        </Link>
+
+                        <DeleteProductButton productId={product._id} />
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
+          )}
         </div>
       </div>
     </div>
