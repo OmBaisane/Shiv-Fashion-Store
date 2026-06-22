@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import Order from "@/models/Order";
+import "@/models/Product";
 import { connectDB } from "@/lib/mongodb";
 import AdminNavbar from "@/components/AdminNavbar";
 import OrderStatusSelect from "@/components/OrderStatusSelect";
