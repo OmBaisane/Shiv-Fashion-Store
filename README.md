@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Shiv Fashion Store
 
-## Getting Started
+A full-stack fashion e-commerce website built for a real local fashion business.
 
-First, run the development server:
+Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+https://shiv-fashion-store.vercel.app/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Project Type
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Client Project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project was developed for a real fashion business to manage products, customer orders, and store operations through a custom admin dashboard.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Customer Side
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Browse fashion products
+- Product details page
+- Place orders
+- WhatsApp contact integration
+- Call integration
+- Mobile responsive UI
 
-## Deploy on Vercel
+Admin Side
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Secure admin login
+- Add products
+- Edit products
+- Delete products
+- Upload product images using Cloudinary
+- Manage customer orders
+- Update order status
+- Delete completed orders
+- Dashboard analytics
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Tech Stack
+
+Frontend:
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+
+Backend:
+
+- Next.js Route Handlers
+- MongoDB
+- Mongoose
+
+Authentication:
+
+- JWT Authentication
+- Protected Admin Routes
+
+Media Storage:
+
+- Cloudinary
+
+Deployment:
+
+- Vercel
+
+---
+
+Project Structure
+
+src/
+
+├── app/
+
+├── components/
+
+├── lib/
+
+├── models/
+
+├── middleware.ts
+
+└── types/
+
+---
+
+Key Learning Outcomes
+
+- Building a real client project
+- Full-stack application architecture
+- MongoDB database design
+- Authentication and authorization
+- Cloudinary image uploads
+- Production deployment
+- Real-world debugging
+- Admin dashboard development
+- Client requirement handling
+
+---
+
+Future Improvements
+
+- Razorpay payment integration
+- Order search and filtering
+- Customer accounts
+- Inventory management
+- Email notifications
+- Analytics dashboard
+
+---
+
+Author
+
+Om Baisane
+
+GitHub:
+https://github.com/OmBaisane
+
+LinkedIn:
+https://www.linkedin.com/in/om-baisane-b96625346
