@@ -2,6 +2,7 @@ import Order from "@/models/Order";
 import { connectDB } from "@/lib/mongodb";
 import AdminNavbar from "@/components/AdminNavbar";
 import OrderStatusSelect from "@/components/OrderStatusSelect";
+import DeleteOrderButton from "@/components/DeleteOrderButton";
 
 export default async function AdminOrdersPage() {
   await connectDB();
@@ -36,8 +37,8 @@ export default async function AdminOrdersPage() {
             </p>
           </div>
         ) : (
-          <div className="overflow-hidden rounded-3xl bg-white shadow-xl">
-            <table className="w-full">
+          <div className="overflow-x-auto rounded-3xl bg-white shadow-xl">
+            <table className="w-full min-w-225">
               <thead>
                 <tr className="bg-zinc-100">
                   <th className="p-5 text-left">Customer</th>
@@ -82,6 +83,12 @@ export default async function AdminOrdersPage() {
 
                     <td className="p-5 text-zinc-600">
                       {new Date(order.createdAt).toLocaleDateString()}
+                    </td>
+
+                    <td className="p-5">
+                      {order.status === "Delivered" && (
+                        <DeleteOrderButton orderId={order._id} />
+                      )}
                     </td>
 
                     <td className="p-5">

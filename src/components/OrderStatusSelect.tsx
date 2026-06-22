@@ -15,7 +15,7 @@ export default function OrderStatusSelect({
     const status = e.target.value;
 
     try {
-      await fetch(`/api/orders/${orderId}`, {
+      const res = await fetch(`/api/orders/${orderId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -24,6 +24,15 @@ export default function OrderStatusSelect({
           status,
         }),
       });
+
+      const data = await res.json();
+
+      console.log("STATUS RESPONSE:", data);
+
+      if (!res.ok) {
+        alert(data.message || "Failed to update order");
+        return;
+      }
 
       router.refresh();
     } catch (error) {
@@ -45,9 +54,7 @@ export default function OrderStatusSelect({
       }`}
     >
       <option value="Pending">🟡 Pending</option>
-
       <option value="Confirmed">🔵 Confirmed</option>
-
       <option value="Delivered">🟢 Delivered</option>
     </select>
   );
