@@ -1,42 +1,33 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
-import "@/models/Product";
 
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    console.log("PUT ROUTE HIT");
+
     await connectDB();
 
     const { id } = await params;
 
-    const { status } = await request.json();
-
     console.log("ORDER ID:", id);
-    console.log("NEW STATUS:", status);
 
-    const order = await Order.findByIdAndUpdate(
-      id,
-      { status },
-      {
-        new: true,
-        runValidators: true,
-      },
-    );
+    const text = await request.text();
 
-    if (!order) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Order not found",
-        },
-        {
-          status: 404,
-        },
-      );
-    }
+    console.log("RAW BODY:", text);
+
+    const body = JSON.parse(text);
+
+    console.log("PARSED BODY:", body);
+
+    const { status } = body;
+
+    const order = await Order.findByIdAndUpdate(id, { status }, { new: true });
+
+    console.log("UPDATED ORDER:", order);
 
     return NextResponse.json({
       success: true,
@@ -70,7 +61,6 @@ export async function DELETE(
 
     return NextResponse.json({
       success: true,
-      message: "Order deleted successfully",
     });
   } catch (error) {
     console.error(error);
@@ -78,7 +68,7 @@ export async function DELETE(
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to delete order",
+        error: String(error),
       },
       {
         status: 500,
