@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Order from "@/models/Order";
 import { connectDB } from "@/lib/mongodb";
 import AdminNavbar from "@/components/AdminNavbar";
@@ -6,6 +8,8 @@ import DeleteOrderButton from "@/components/DeleteOrderButton";
 
 export default async function AdminOrdersPage() {
   await connectDB();
+
+  await Order.syncIndexes();
 
   const orders = JSON.parse(
     JSON.stringify(
