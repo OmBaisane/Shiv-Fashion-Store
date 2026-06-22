@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
+import "@/models/Product";
 
 export async function PUT(
   request: Request,
@@ -11,23 +12,43 @@ export async function PUT(
 
     const { id } = await params;
 
-    const body = await request.json();
+    const { status } = await request.json();
 
-    const { status } = body;
+    console.log("ORDER ID:", id);
+    console.log("NEW STATUS:", status);
 
-    const order = await Order.findByIdAndUpdate(id, { status }, { new: true });
+    const order = await Order.findByIdAndUpdate(
+      id,
+      { status },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+
+    if (!order) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Order not found",
+        },
+        {
+          status: 404,
+        },
+      );
+    }
 
     return NextResponse.json({
       success: true,
       data: order,
     });
   } catch (error) {
-    console.error(error);
+    console.error("PUT ERROR:", error);
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update order",
+        error: String(error),
       },
       {
         status: 500,
