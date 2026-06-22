@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
+import "@/models/Product";
 
 export async function POST(request: Request) {
   try {
@@ -66,12 +67,12 @@ export async function GET() {
       data: orders,
     });
   } catch (error) {
-    console.error(error);
+    console.error("GET ORDERS ERROR:", error);
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch orders",
+        error: String(error),
       },
       {
         status: 500,
