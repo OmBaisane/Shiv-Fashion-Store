@@ -6,7 +6,7 @@ export default function SuccessPage() {
       <div className="max-w-xl text-center">
         <div className="mb-6 text-7xl">🎉</div>
 
-        <h1 className="text-5xl font-bold text-black">
+        <h1 className="text-5xl font-bold text-white">
           Order Placed Successfully
         </h1>
 

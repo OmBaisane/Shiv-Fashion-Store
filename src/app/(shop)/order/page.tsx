@@ -62,7 +62,7 @@ function CheckoutForm() {
             required
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
-            className="w-full rounded-xl border border-zinc-300 p-4 outline-none focus:border-yellow-500"
+            className="w-full rounded-xl border border-zinc-300 p-4 text-black outline-none focus:border-yellow-500"
           />
 
           <label className="mb-2 block font-semibold text-zinc-700">
@@ -74,7 +74,7 @@ function CheckoutForm() {
             required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full rounded-xl border border-zinc-300 p-4 outline-none focus:border-yellow-500"
+            className="w-full rounded-xl border border-zinc-300 p-4 text-black outline-none focus:border-yellow-500"
           />
 
           <label className="mb-2 block font-semibold text-zinc-700">
@@ -86,7 +86,7 @@ function CheckoutForm() {
             rows={4}
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            className="w-full rounded-xl border border-zinc-300 p-4 outline-none focus:border-yellow-500"
+            className="w-full rounded-xl border border-zinc-300 p-4 text-black outline-none focus:border-yellow-500"
           />
 
           <button
