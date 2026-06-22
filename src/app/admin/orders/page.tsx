@@ -9,8 +9,6 @@ import DeleteOrderButton from "@/components/DeleteOrderButton";
 export default async function AdminOrdersPage() {
   await connectDB();
 
-  await Order.syncIndexes();
-
   const orders = JSON.parse(
     JSON.stringify(
       await Order.find().populate("productId").sort({ createdAt: -1 }),
