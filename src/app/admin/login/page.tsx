@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="admin@example.com"
-              className="w-full rounded-xl border border-zinc-300 px-4 py-3 transition outline-none focus:border-black"
+              className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none focus:border-black"
               required
             />
           </div>
@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full rounded-xl border border-zinc-300 px-4 py-3 transition outline-none focus:border-black"
+              className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-black transition outline-none focus:border-black"
               required
             />
           </div>

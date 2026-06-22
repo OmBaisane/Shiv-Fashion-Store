@@ -150,7 +150,7 @@ export default function AddProductPage() {
                 type="file"
                 accept="image/*"
                 onChange={handleImageUpload}
-                className="w-full rounded-xl border border-zinc-300 p-3"
+                className="w-full rounded-xl border border-zinc-300 p-3 text-zinc-400"
               />
 
               {uploading && (

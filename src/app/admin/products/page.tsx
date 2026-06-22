@@ -52,10 +52,10 @@ export default async function AdminProductsPage() {
             <table className="w-full">
               <thead>
                 <tr className="bg-zinc-100">
-                  <th className="p-5 text-left">Image</th>
-                  <th className="p-5 text-left">Name</th>
-                  <th className="p-5 text-left">Price</th>
-                  <th className="p-5 text-left">Actions</th>
+                  <th className="p-5 text-left text-gray-500">Image</th>
+                  <th className="p-5 text-left text-gray-500">Name</th>
+                  <th className="p-5 text-left text-gray-500">Price</th>
+                  <th className="p-5 text-left text-gray-500">Actions</th>
                 </tr>
               </thead>
 

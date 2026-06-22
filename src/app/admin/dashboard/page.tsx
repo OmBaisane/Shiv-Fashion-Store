@@ -42,13 +42,13 @@ export default async function AdminDashboardPage() {
           <div className="rounded-3xl bg-white p-6 shadow-lg">
             <p className="text-sm text-zinc-500">Total Products</p>
 
-            <h2 className="mt-3 text-5xl font-bold">{totalProducts}</h2>
+            <h2 className="mt-3 text-5xl font-bold text-black">{totalProducts}</h2>
           </div>
 
           <div className="rounded-3xl bg-white p-6 shadow-lg">
             <p className="text-sm text-zinc-500">Total Orders</p>
 
-            <h2 className="mt-3 text-5xl font-bold">{totalOrders}</h2>
+            <h2 className="mt-3 text-5xl font-bold text-black">{totalOrders}</h2>
           </div>
 
           <div className="rounded-3xl bg-white p-6 shadow-lg">
@@ -78,14 +78,16 @@ export default async function AdminDashboardPage() {
 
           <Link
             href="/admin/orders"
-            className="rounded-xl border border-zinc-300 bg-white px-6 py-3 font-medium transition hover:bg-zinc-100"
+            className="rounded-xl border border-zinc-300 bg-white px-6 py-3 font-medium text-black transition hover:bg-zinc-100"
           >
             Manage Orders
           </Link>
         </div>
 
         <div className="mt-12">
-          <h2 className="mb-5 text-2xl font-bold">Recent Orders</h2>
+          <h2 className="mb-5 text-2xl font-bold text-zinc-800">
+            Recent Orders
+          </h2>
 
           <div className="overflow-hidden rounded-3xl bg-white shadow-xl">
             {recentOrders.length === 0 ? (
@@ -96,22 +98,24 @@ export default async function AdminDashboardPage() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-zinc-100">
-                    <th className="p-4 text-left">Customer</th>
-                    <th className="p-4 text-left">Product</th>
-                    <th className="p-4 text-left">Status</th>
+                    <th className="p-4 text-left text-gray-600">Customer</th>
+                    <th className="p-4 text-left text-gray-600">Product</th>
+                    <th className="p-4 text-left text-gray-600">Status</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {recentOrders.map((order: any) => (
                     <tr key={order._id} className="border-t hover:bg-zinc-50">
-                      <td className="p-4 font-medium">{order.customerName}</td>
+                      <td className="p-4 font-medium text-gray-400">
+                        {order.customerName}
+                      </td>
 
-                      <td className="p-4">
+                      <td className="p-4 text-gray-400">
                         {order.productId?.name || "Deleted Product"}
                       </td>
 
-                      <td className="p-4">
+                      <td className="p-4 text-gray-400">
                         <span
                           className={`rounded-full px-3 py-1 text-sm font-medium ${
                             order.status === "Delivered"

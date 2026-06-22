@@ -45,12 +45,13 @@ export default async function AdminOrdersPage() {
             <table className="w-full min-w-225">
               <thead>
                 <tr className="bg-zinc-100">
-                  <th className="p-5 text-left">Customer</th>
-                  <th className="p-5 text-left">Phone</th>
-                  <th className="p-5 text-left">Product</th>
-                  <th className="p-5 text-left">Status</th>
-                  <th className="p-5 text-left">Date</th>
-                  <th className="p-5 text-left">Actions</th>
+                  <th className="p-5 text-left text-gray-500">Customer</th>
+                  <th className="p-5 text-left text-gray-500">Phone</th>
+                  <th className="p-5 text-left text-gray-500">Product</th>
+                  <th className="p-5 text-left text-gray-500">Status</th>
+                  <th className="p-5 text-left text-gray-500">Date</th>
+                  <th className="p-5 text-left text-gray-500">Actions</th>
+                  <th className="p-5 text-left text-gray-500">Contact</th>
                 </tr>
               </thead>
 
@@ -72,9 +73,11 @@ export default async function AdminOrdersPage() {
                       </div>
                     </td>
 
-                    <td className="p-5 font-medium">{order.phone}</td>
+                    <td className="p-5 font-medium text-gray-400">
+                      {order.phone}
+                    </td>
 
-                    <td className="p-5">
+                    <td className="p-5 text-gray-400">
                       {order.productId?.name || "Deleted Product"}
                     </td>
 
