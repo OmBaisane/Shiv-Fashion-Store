@@ -1,122 +1,170 @@
-Shiv Fashion Store
+# 👔 Shiv Fashion Store
 
-A full-stack fashion e-commerce website built for a real local fashion business.
-
-Live Demo
-
-https://shiv-fashion-store.vercel.app/
-
-Project Type
-
-Client Project
-
-This project was developed for a real fashion business to manage products, customer orders, and store operations through a custom admin dashboard.
+A production-ready full-stack fashion e-commerce website built for a real local fashion business using Next.js, TypeScript, MongoDB, JWT Authentication, and Cloudinary.
 
 ---
 
-Features
+## 🌐 Live Demo
 
-Customer Side
+🔗 https://shiv-fashion-store.vercel.app/
+
+---
+
+## 💼 Project Type
+
+**Client Project**
+
+Developed for a real local fashion business to manage products, customer orders, and store operations through a custom admin dashboard.
+
+---
+
+## ✨ Features
+
+### Customer
 
 - Browse fashion products
 - Product details page
-- Place orders
-- WhatsApp contact integration
-- Call integration
-- Mobile responsive UI
+- Responsive shopping experience
+- Mobile-friendly UI
 
-Admin Side
+### Admin
 
-- Secure admin login
-- Add products
-- Edit products
-- Delete products
-- Upload product images using Cloudinary
-- Manage customer orders
-- Update order status
-- Delete completed orders
-- Dashboard analytics
+- Secure JWT Authentication
+- Admin Dashboard
+- Add, edit and delete products
+- Image upload with Cloudinary
+- Order management
+
+### General
+
+- Responsive design
+- Modern UI built with Tailwind CSS
+- Optimized performance
+- Loading and empty states
+- Form validation
+- Error handling
 
 ---
 
-Tech Stack
+## 🛠️ Tech Stack
 
-Frontend:
+### Frontend
 
 - Next.js
+- React
 - TypeScript
 - Tailwind CSS
 
-Backend:
+### Backend
 
-- Next.js Route Handlers
+- Next.js API Routes
+- JWT Authentication
+
+### Database
+
 - MongoDB
 - Mongoose
 
-Authentication:
-
-- JWT Authentication
-- Protected Admin Routes
-
-Media Storage:
+### Media Storage
 
 - Cloudinary
 
-Deployment:
+---
 
-- Vercel
+## 📂 Folder Structure
+
+```text
+app/
+components/
+lib/
+models/
+public/
+types/
+middleware.ts
+```
 
 ---
 
-Project Structure
+## ⚙️ Installation
 
-src/
+Clone the repository
 
-├── app/
+```bash
+git clone https://github.com/OmBaisane/Shiv-Fashion-Store.git
+```
 
-├── components/
+Navigate to the project
 
-├── lib/
+```bash
+cd Shiv-Fashion-Store
+```
 
-├── models/
+Install dependencies
 
-├── middleware.ts
+```bash
+npm install
+```
 
-└── types/
+Create a `.env.local` file and add:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+Run the development server
+
+```bash
+npm run dev
+```
+
+Open:
+
+```
+http://localhost:3000
+```
 
 ---
 
-Key Learning Outcomes
+## 📚 Key Learnings
 
-- Building a real client project
 - Full-stack application architecture
-- MongoDB database design
-- Authentication and authorization
+- JWT Authentication
+- Protected Admin Routes
+- MongoDB & Mongoose integration
 - Cloudinary image uploads
+- API route development
+- Responsive UI design
 - Production deployment
-- Real-world debugging
-- Admin dashboard development
-- Client requirement handling
 
 ---
 
-Future Improvements
+## 🔮 Future Improvements
 
-- Razorpay payment integration
-- Order search and filtering
-- Customer accounts
-- Inventory management
+- Payment gateway integration
+- Product search
+- Category filtering
+- Wishlist
+- Customer authentication
+- Order tracking
 - Email notifications
 - Analytics dashboard
 
 ---
 
-Author
+## 📫 Contact
 
-Om Baisane
+- 🌐 Portfolio: https://portfolio-nine-phi-ry8fa70ws1.vercel.app
+- 💻 GitHub: https://github.com/OmBaisane
+- 💼 LinkedIn: https://www.linkedin.com/in/om-baisane-b96625346
+- 📧 Email: ombaisane29@gmail.com
 
-GitHub:
-https://github.com/OmBaisane
+---
 
-LinkedIn:
-https://www.linkedin.com/in/om-baisane-b96625346
+## 📄 License
+
+This project is licensed under the MIT License.
